@@ -1,0 +1,455 @@
+CCS PCM C Compiler, Version 5.015, 5967               13-nov.-19 01:02
+
+               Filename:   C:\Users\juanm\Desktop\RS485\main.lst
+
+               ROM used:   350 words (4%)
+                           Largest free fragment is 2048
+               RAM used:   93 (25%) at main() level
+                           99 (27%) worst case
+               Stack used: 5 locations (2 in main + 3 for interrupts)
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   0D7
+0003:  NOP
+0004:  MOVWF  7F
+0005:  SWAPF  03,W
+0006:  CLRF   03
+0007:  MOVWF  21
+0008:  MOVF   0A,W
+0009:  MOVWF  20
+000A:  CLRF   0A
+000B:  MOVF   04,W
+000C:  MOVWF  22
+000D:  MOVF   77,W
+000E:  MOVWF  23
+000F:  MOVF   78,W
+0010:  MOVWF  24
+0011:  MOVF   79,W
+0012:  MOVWF  25
+0013:  MOVF   7A,W
+0014:  MOVWF  26
+0015:  BCF    03.7
+0016:  BCF    03.5
+0017:  BTFSS  0B.4
+0018:  GOTO   01B
+0019:  BTFSC  0B.1
+001A:  GOTO   032
+001B:  MOVLW  8C
+001C:  MOVWF  04
+001D:  BTFSS  00.5
+001E:  GOTO   021
+001F:  BTFSC  0C.5
+0020:  GOTO   035
+0021:  MOVF   22,W
+0022:  MOVWF  04
+0023:  MOVF   23,W
+0024:  MOVWF  77
+0025:  MOVF   24,W
+0026:  MOVWF  78
+0027:  MOVF   25,W
+0028:  MOVWF  79
+0029:  MOVF   26,W
+002A:  MOVWF  7A
+002B:  MOVF   20,W
+002C:  MOVWF  0A
+002D:  SWAPF  21,W
+002E:  MOVWF  03
+002F:  SWAPF  7F,F
+0030:  SWAPF  7F,W
+0031:  RETFIE
+0032:  BCF    0A.3
+0033:  BCF    0A.4
+0034:  GOTO   054
+0035:  BCF    0A.3
+0036:  BCF    0A.4
+0037:  GOTO   038
+.................... #include "16f877a.h" 
+.................... //////////// Standard Header file for the PIC16F877A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2013 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device PIC16F877A 
+*
+0042:  MOVF   78,W
+0043:  BTFSC  03.2
+0044:  GOTO   04A
+0045:  MOVF   77,W
+0046:  MOVWF  00
+0047:  INCF   04,F
+0048:  DECFSZ 78,F
+0049:  GOTO   045
+004A:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #use delay(clock=20Mhz) 
+*
+00A3:  MOVLW  74
+00A4:  MOVWF  04
+00A5:  BCF    03.7
+00A6:  MOVF   00,W
+00A7:  BTFSC  03.2
+00A8:  GOTO   0B6
+00A9:  MOVLW  06
+00AA:  MOVWF  78
+00AB:  CLRF   77
+00AC:  DECFSZ 77,F
+00AD:  GOTO   0AC
+00AE:  DECFSZ 78,F
+00AF:  GOTO   0AB
+00B0:  MOVLW  7B
+00B1:  MOVWF  77
+00B2:  DECFSZ 77,F
+00B3:  GOTO   0B2
+00B4:  DECFSZ 00,F
+00B5:  GOTO   0A9
+00B6:  BCF    0A.3
+00B7:  BCF    0A.4
+00B8:  GOTO   108 (RETURN)
+.................... #use rs232(UART, baud=19200, enable=PIN_C5,stream=SLAVES) 
+00B9:  BCF    28.5
+00BA:  MOVF   28,W
+00BB:  BSF    03.5
+00BC:  MOVWF  07
+00BD:  BCF    03.5
+00BE:  BSF    07.5
+00BF:  BTFSS  0C.4
+00C0:  GOTO   0BF
+00C1:  BCF    28.5
+00C2:  MOVF   28,W
+00C3:  BSF    03.5
+00C4:  MOVWF  07
+00C5:  BCF    03.5
+00C6:  BSF    07.5
+00C7:  BSF    03.5
+00C8:  MOVF   20,W
+00C9:  BCF    03.5
+00CA:  MOVWF  19
+00CB:  NOP
+00CC:  BSF    03.5
+00CD:  BTFSS  18.1
+00CE:  GOTO   0CD
+00CF:  BCF    03.5
+00D0:  BCF    28.5
+00D1:  MOVF   28,W
+00D2:  BSF    03.5
+00D3:  MOVWF  07
+00D4:  BCF    03.5
+00D5:  BCF    07.5
+00D6:  RETURN
+.................... #use rs232(xmit=PIN_B1, rcv=PIN_B0, baud=19200, stream=RASPBERRY) 
+*
+0054:  BSF    03.5
+0055:  BSF    06.0
+0056:  BCF    03.5
+0057:  BTFSC  06.0
+0058:  GOTO   057
+0059:  MOVLW  08
+005A:  MOVWF  77
+005B:  BSF    03.5
+005C:  CLRF   21
+005D:  BSF    77.7
+005E:  GOTO   06F
+005F:  BCF    77.7
+0060:  GOTO   06F
+0061:  BCF    03.0
+0062:  BCF    03.5
+0063:  BTFSC  06.0
+0064:  BSF    03.0
+0065:  BSF    03.5
+0066:  RRF    21,F
+0067:  BSF    77.6
+0068:  GOTO   06F
+0069:  BCF    77.6
+006A:  DECFSZ 77,F
+006B:  GOTO   061
+006C:  MOVF   21,W
+006D:  MOVWF  78
+006E:  GOTO   07B
+006F:  MOVLW  50
+0070:  BTFSC  77.7
+0071:  MOVLW  15
+0072:  MOVWF  78
+0073:  DECFSZ 78,F
+0074:  GOTO   073
+0075:  NOP
+0076:  BTFSC  77.7
+0077:  GOTO   05F
+0078:  BTFSC  77.6
+0079:  GOTO   069
+007A:  GOTO   061
+.................... #fuses HS 
+....................  
+.................... #define	MAXBUFFER	64 
+.................... #define	STX 		0x02 
+.................... #define	ETX			0x03 
+....................  
+.................... int buffer[MAXBUFFER], c; 
+.................... boolean flag=false; 
+.................... int next=0; 
+....................  
+.................... typedef struct{ 
+.................... 	int 	_stx; 
+.................... 	int 	_address; 
+.................... 	int 	_func; 
+.................... 	long 	_payload; 
+.................... 	long 	_crc; 
+.................... 	int 	_etx; 
+.................... }Packet; 
+....................  
+.................... Packet frame; 
+....................  
+.................... void clearBuffer(void){ 
+.................... 	memset(buffer, 0, sizeof(buffer)); 
+*
+004B:  MOVLW  29
+004C:  MOVWF  04
+004D:  BCF    03.7
+004E:  CLRF   77
+004F:  MOVLW  40
+0050:  MOVWF  78
+0051:  CALL   042
+.................... 	next=0; 
+0052:  CLRF   6B
+0053:  RETURN
+.................... } 
+....................  
+.................... void main(void){ 
+*
+00D7:  MOVF   03,W
+00D8:  ANDLW  1F
+00D9:  MOVWF  03
+00DA:  MOVLW  FF
+00DB:  MOVWF  28
+00DC:  BCF    28.5
+00DD:  MOVF   28,W
+00DE:  BSF    03.5
+00DF:  MOVWF  07
+00E0:  BCF    03.5
+00E1:  BCF    07.5
+00E2:  MOVLW  40
+00E3:  BSF    03.5
+00E4:  MOVWF  19
+00E5:  MOVLW  A6
+00E6:  MOVWF  18
+00E7:  MOVLW  90
+00E8:  BCF    03.5
+00E9:  MOVWF  18
+00EA:  BSF    03.5
+00EB:  BCF    06.1
+00EC:  BCF    03.5
+00ED:  BSF    06.1
+00EE:  BCF    6A.0
+00EF:  CLRF   6B
+00F0:  BSF    03.5
+00F1:  BSF    1F.0
+00F2:  BSF    1F.1
+00F3:  BSF    1F.2
+00F4:  BCF    1F.3
+00F5:  MOVLW  07
+00F6:  MOVWF  1C
+00F7:  BCF    03.7
+.................... enable_interrupts(int_ext_h2l); 
+00F8:  BCF    03.5
+00F9:  BSF    0B.4
+00FA:  BSF    03.5
+00FB:  BCF    01.6
+.................... //enable_interrupts(int_rda); 
+.................... enable_interrupts(global); 
+00FC:  MOVLW  C0
+00FD:  BCF    03.5
+00FE:  IORWF  0B,F
+.................... output_low(PIN_C5); 
+00FF:  BCF    28.5
+0100:  MOVF   28,W
+0101:  BSF    03.5
+0102:  MOVWF  07
+0103:  BCF    03.5
+0104:  BCF    07.5
+.................... delay_ms(20); 
+0105:  MOVLW  14
+0106:  MOVWF  74
+0107:  GOTO   0A3
+.................... 	while(true){ 
+.................... 		if(flag){ 
+0108:  BTFSS  6A.0
+0109:  GOTO   15C
+.................... 			disable_interrupts(global); 
+010A:  BCF    0B.6
+010B:  BCF    0B.7
+010C:  BTFSC  0B.7
+010D:  GOTO   10B
+.................... 			frame=buffer; 
+010E:  MOVF   29,W
+010F:  MOVWF  6C
+0110:  MOVF   2A,W
+0111:  MOVWF  6D
+0112:  MOVF   2B,W
+0113:  MOVWF  6E
+0114:  MOVF   2C,W
+0115:  MOVWF  6F
+0116:  MOVF   2D,W
+0117:  MOVWF  70
+0118:  MOVF   2E,W
+0119:  MOVWF  71
+011A:  MOVF   2F,W
+011B:  MOVWF  72
+011C:  MOVF   30,W
+011D:  MOVWF  73
+.................... 			fprintf(SLAVES,"%c%c%c%c%c%c%c%c",frame._stx,frame._address,frame._func,frame._payload,frame._payload>>8,frame._crc,frame._crc>>8,frame._etx); 
+011E:  MOVF   70,W
+011F:  MOVWF  7B
+0120:  CLRF   7C
+0121:  MOVF   72,W
+0122:  MOVWF  7D
+0123:  CLRF   7E
+0124:  MOVF   6C,W
+0125:  BSF    03.5
+0126:  MOVWF  20
+0127:  BCF    03.5
+0128:  CALL   0B9
+0129:  MOVF   6D,W
+012A:  BSF    03.5
+012B:  MOVWF  20
+012C:  BCF    03.5
+012D:  CALL   0B9
+012E:  MOVF   6E,W
+012F:  BSF    03.5
+0130:  MOVWF  20
+0131:  BCF    03.5
+0132:  CALL   0B9
+0133:  MOVF   6F,W
+0134:  BSF    03.5
+0135:  MOVWF  20
+0136:  BCF    03.5
+0137:  CALL   0B9
+0138:  MOVF   7B,W
+0139:  BSF    03.5
+013A:  MOVWF  20
+013B:  BCF    03.5
+013C:  CALL   0B9
+013D:  MOVF   71,W
+013E:  BSF    03.5
+013F:  MOVWF  20
+0140:  BCF    03.5
+0141:  CALL   0B9
+0142:  MOVF   7D,W
+0143:  BSF    03.5
+0144:  MOVWF  20
+0145:  BCF    03.5
+0146:  CALL   0B9
+0147:  MOVF   73,W
+0148:  BSF    03.5
+0149:  MOVWF  20
+014A:  BCF    03.5
+014B:  CALL   0B9
+.................... 			flag=false; 
+014C:  BCF    6A.0
+.................... 			output_low(PIN_C5); 
+014D:  BCF    28.5
+014E:  MOVF   28,W
+014F:  BSF    03.5
+0150:  MOVWF  07
+0151:  BCF    03.5
+0152:  BCF    07.5
+0153:  CLRF   27
+0154:  BTFSC  0B.7
+0155:  BSF    27.7
+0156:  BCF    0B.7
+.................... 			clearBuffer(); 
+0157:  CALL   04B
+0158:  BTFSC  27.7
+0159:  BSF    0B.7
+.................... 			enable_interrupts(global); 
+015A:  MOVLW  C0
+015B:  IORWF  0B,F
+.................... 		} 
+015C:  GOTO   108
+.................... 	} 
+.................... } 
+....................  
+.................... #int_rda 
+.................... void isrRda(void){ 
+015D:  SLEEP
+.................... 	output_low(PIN_C5); 
+*
+0038:  BCF    28.5
+0039:  MOVF   28,W
+003A:  BSF    03.5
+003B:  MOVWF  07
+003C:  BCF    03.5
+003D:  BCF    07.5
+.................... } 
+....................  
+003E:  BCF    0C.5
+003F:  BCF    0A.3
+0040:  BCF    0A.4
+0041:  GOTO   021
+.................... #int_ext 
+.................... void isrExt(void){ 
+.................... c=getc(RASPBERRY); 
+*
+007B:  MOVF   78,W
+007C:  BCF    03.5
+007D:  MOVWF  69
+.................... 	if(c==ETX&&next==7){ 
+007E:  MOVF   69,W
+007F:  SUBLW  03
+0080:  BTFSS  03.2
+0081:  GOTO   08F
+0082:  MOVF   6B,W
+0083:  SUBLW  07
+0084:  BTFSS  03.2
+0085:  GOTO   08F
+.................... 		buffer[next]=c; 
+0086:  MOVLW  29
+0087:  ADDWF  6B,W
+0088:  MOVWF  04
+0089:  BCF    03.7
+008A:  MOVF   69,W
+008B:  MOVWF  00
+.................... 		next++; 
+008C:  INCF   6B,F
+.................... 		flag=true; 
+008D:  BSF    6A.0
+.................... 	} 
+008E:  GOTO   09F
+.................... 	else if(next<8) { 
+008F:  MOVF   6B,W
+0090:  SUBLW  07
+0091:  BTFSS  03.0
+0092:  GOTO   09B
+.................... 		buffer[next]=c; 
+0093:  MOVLW  29
+0094:  ADDWF  6B,W
+0095:  MOVWF  04
+0096:  BCF    03.7
+0097:  MOVF   69,W
+0098:  MOVWF  00
+.................... 		next++; 
+0099:  INCF   6B,F
+.................... 	} 
+009A:  GOTO   09F
+.................... 	else if(next>=8) 
+009B:  MOVF   6B,W
+009C:  SUBLW  07
+009D:  BTFSS  03.0
+.................... 		clearBuffer();	 
+009E:  CALL   04B
+009F:  BCF    0B.1
+00A0:  BCF    0A.3
+00A1:  BCF    0A.4
+00A2:  GOTO   021
+.................... } 
+
+Configuration Fuses:
+   Word  1: 3F72   HS NOWDT PUT BROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

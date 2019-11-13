@@ -1,0 +1,19 @@
+ÀÄmain
+   ÃÄMAIN  0/135  Ram=4
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄ@delay_ms1  0/22  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÃÄ@PUTCHAR_BIU_1  0/30  Ram=1
+   ³  ÀÄclearBuffer  0/9  Ram=0
+   ³     ÀÄ@MEMSET  0/9  Ram=0
+   ÃÄisrRda  0/10  Ram=0
+   ÀÄisrExt  0/79  Ram=2
+      ÃÄ@GETCH_2_  (Inline)  Ram=1
+      ÀÄclearBuffer  0/9  Ram=0
+         ÀÄ*

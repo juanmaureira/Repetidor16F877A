@@ -1,0 +1,4 @@
+>>> Warning 216 "main.c" Line 69(1,2): Interrupts disabled during call to prevent re-entrancy:  (clearBuffer)
+      Memory usage:   ROM=4%      RAM=25% - 27%
+      0 Errors,  1 Warnings.
+Build Successful.
